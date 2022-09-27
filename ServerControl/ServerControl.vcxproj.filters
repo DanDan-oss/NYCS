@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Head">
+      <UniqueIdentifier>{f35915c3-bd32-4c70-9953-c96f32f75acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{327cd63b-7577-4f84-a3e2-69f2f671df53}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerMSG.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="msg.pb.cc">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerNetwork.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerProto.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerRole.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="encry.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ServerMSG.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="msg.pb.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerNetwork.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerProto.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerRole.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="encry.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="msg.proto">
+      <Filter>Head</Filter>
+    </None>
+  </ItemGroup>
+</Project>

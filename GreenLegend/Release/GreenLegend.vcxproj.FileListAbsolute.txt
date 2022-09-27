@@ -1,0 +1,3 @@
+D:\ClassWork\GreenLegend\Release\GreenLegend.exe
+E:\P8\c++\GreenLegend\GreenLegend\Release\GreenLegend.exe
+D:\飞鸽\feiq\Recv Files\GreenLegend\Release\GreenLegend.exe

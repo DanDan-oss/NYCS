@@ -1,0 +1,33 @@
+<Debugger>
+    <Item name="c64.exe" path="D:\DbgPlugin\Plugin-CE\64\c64.exe" />
+    <Item name="x32.exe" path="D:\DbgPlugin\Plugin-Dbg\release\x32\x32.exe" />
+    <Item name="myce32.exe" path="D:\DbgPlugin\Plugin-CE\32\myce32.exe" />
+    <Item name="ce32.exe" path="D:\DbgPlugin\Plugin-CE\64\ce32.exe" />
+    <Item name="c3e2.exe" path="D:\DbgPlugin\Plugin-CE\64\c3e2.exe" />
+    <Item name="e_32.exe" path="D:\DbgPlugin\Plugin-CE\32\e_32.exe" />
+    <Item name="64.exe" path="D:\DbgPlugin\Plugin-CE\64\64.exe" />
+    <Item name="myce32.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE32位\myce32.exe" />
+    <Item name="myce64.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE64位\myce64.exe" />
+    <Item name="my64.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE64位\my64.exe" />
+    <Item name="my32.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE32位\my32.exe" />
+    <Item name="myC64.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE64位\myC64.exe" />
+    <Item name="x64d.exe" path="D:\DbgPlugin\Plugin-Dbg\release\x64\x64d.exe" />
+    <Item name="64.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE64位\64.exe" />
+    <Item name="x64.exe" path="D:\DbgPlugin\Plugin-Dbg\release\x64\x64.exe" />
+    <Item name="C_64.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE64位\C_64.exe" />
+    <Item name="x64_.exe" path="D:\DbgPlugin\Plugin-Dbg\release\x64\x64_.exe" />
+    <Item name="_64.exe" path="D:\DbgPlugin\Plugin-CE\DbgPlugin专用CE64位\_64.exe" />
+    <Item name="D_x64.exe" path="D:\DbgPlugin\Plugin-Dbg\release\x64\D_x64.exe" />
+    <Item name="my64.exe" path="D:\qq文档\1256455767\FileRecv\DbgPlugin工具包\Plugin-CE\DbgPlugin专用CE64位\my64.exe" />
+    <Item name="Cheat Engine.exe" path="E:\C E 7.2\Cheat Engine.exe" />
+    <Item name="x96dbg.exe" path="D:\qq文档\1256455767\FileRecv\DbgPlugin工具包\Plugin-Dbg\release\x96dbg.exe" />
+    <Item name="D_x64.exe" path="D:\qq文档\1256455767\FileRecv\DbgPlugin工具包\Plugin-Dbg\release\x64\D_x64.exe" />
+    <Item name="HelloFriend-x86_64-SSE4-AVX2.vmp.exe" path="C:\Users\12564\Desktop\cheat-engine-e0a5081c29dce39dedcaa8bf7d9d0b13be899faa\Cheat Engine\bin\HelloFriend-x86_64-SSE4-AVX2.vmp.exe" />
+    <Item name="HelloFriend-x86_64-SSE4-AVX2.exe" path="E:\CE7.4\cheat-engine-e0a5081c29dce39dedcaa8bf7d9d0b13be899faa\Cheat Engine\bin\HelloFriend-x86_64-SSE4-AVX2.exe" />
+    <Item name="cheatengine-x86_64.exe" path="E:\C E 7.2\cheatengine-x86_64.exe" />
+    <Item name="Mycheat.exe" path="E:\C E 7.2\Mycheat.exe" />
+    <Item name="Mytool.exe" path="E:\C E 7.2\Mytool.exe" />
+    <Item name="重现江湖.exe" path="C:\Users\12564\Downloads\Compressed\就爱江湖专用OD\重现江湖.exe" />
+    <Item name="HelloFriend-x86_64-SSE4-AVX2.vmp.exe" path="E:\C E 7.2\HelloFriend-x86_64-SSE4-AVX2.vmp.exe" />
+    <Item name="DMTest.exe" path="D:\按键工具\大漠测试工具\DMTest.exe" />
+</Debugger>
