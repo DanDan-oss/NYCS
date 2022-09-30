@@ -27,13 +27,11 @@ CServerProto::~CServerProto()
 
 }
 
-
 UserData* CServerProto::raw2request(std::string _szInput)
 {
-
 	int iMsgType = 0;
 	int iMsgSize = 0;
-	CSocketMSG* pMsg = nullptr;;
+	CSocketMSG* pMsg = nullptr;
 	std::string strCache;		// 缓存,临时存放截取的消息
 	CMultServerMSG* pMultMsg = nullptr;
 
@@ -41,6 +39,7 @@ UserData* CServerProto::raw2request(std::string _szInput)
 	this->m_MsgBuf.append(_szInput);
 	while (this->m_MsgBuf.size() > 8)
 	{
+
 		// 序列化数据长度
 		iMsgSize = 0;
 		iMsgSize |= this->m_MsgBuf[0] << 0;
@@ -54,6 +53,8 @@ UserData* CServerProto::raw2request(std::string _szInput)
 		iMsgType |= this->m_MsgBuf[5] << 0x8;
 		iMsgType |= this->m_MsgBuf[6] << 0x16;
 		iMsgType |= this->m_MsgBuf[7] << 0x24;
+
+
 
 		int leng = this->m_MsgBuf.size() - 8;
 		if (leng < iMsgSize)	// 当前包的实际长度小于应该收的长度,说明包的消息没有收完
@@ -72,14 +73,14 @@ UserData* CServerProto::raw2request(std::string _szInput)
 std::string* CServerProto::response2raw(UserData& _oUserData)
 {	// TODO: 将游戏逻辑消息转换成TCP消息
 	int iLength = 0;
-	int iId = 0;
+	int iMsgType = 0;
 	std::string* pStrMsg = nullptr;
 	std::string strCache;				// 临时缓冲区,存放要发送数据序列化后的字符串
 
 	GET_REF2DATA(CSocketMSG, oOutput, _oUserData);
 	strCache = oOutput.Serialize();
 	iLength = strCache.size();
-	iId = oOutput.GetMsgType();
+	iMsgType = oOutput.GetMsgType();
 
 	pStrMsg = new std::string();
 
@@ -89,12 +90,15 @@ std::string* CServerProto::response2raw(UserData& _oUserData)
 	pStrMsg->push_back((iLength >> 16) & 0xFF);
 	pStrMsg->push_back((iLength >> 24) & 0xFF);
 	// 消息类型
-	pStrMsg->push_back((iId >> 0) & 0xFF);
-	pStrMsg->push_back((iId >> 8) & 0xFF);
-	pStrMsg->push_back((iId >> 16) & 0xFF);
-	pStrMsg->push_back((iId >> 24) & 0xFF);
-	pStrMsg->append(strCache);
+	pStrMsg->push_back((iMsgType >> 0) & 0xFF);
+	pStrMsg->push_back((iMsgType >> 8) & 0xFF);
+	pStrMsg->push_back((iMsgType >> 16) & 0xFF);
+	pStrMsg->push_back((iMsgType >> 24) & 0xFF);
 
+	pStrMsg->append(strCache);
+	std::cout << " size: " << iLength << "  iMsgType:" << iMsgType << " strSize: " << pStrMsg->size() << std::endl;
+	std::cout<< "===================>  " << std::hex << pStrMsg->data() << std::endl;
+	std::cout << std::dec;
 	return pStrMsg;
 }
 

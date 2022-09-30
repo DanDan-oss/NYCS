@@ -1,7 +1,4 @@
 LIARAY "WinSock"
 
 EXPORTS
-	InitNetLib @ 1
-	PlayerLogin @ 2
-
 

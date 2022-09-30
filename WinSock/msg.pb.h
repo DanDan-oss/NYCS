@@ -47,12 +47,12 @@ extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table
 class PlayerLoginMsg;
 struct PlayerLoginMsgDefaultTypeInternal;
 extern PlayerLoginMsgDefaultTypeInternal _PlayerLoginMsg_default_instance_;
-class RespondMsg;
-struct RespondMsgDefaultTypeInternal;
-extern RespondMsgDefaultTypeInternal _RespondMsg_default_instance_;
+class ServerRespondMsg;
+struct ServerRespondMsgDefaultTypeInternal;
+extern ServerRespondMsgDefaultTypeInternal _ServerRespondMsg_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::PlayerLoginMsg* Arena::CreateMaybeMessage<::PlayerLoginMsg>(Arena*);
-template<> ::RespondMsg* Arena::CreateMaybeMessage<::RespondMsg>(Arena*);
+template<> ::ServerRespondMsg* Arena::CreateMaybeMessage<::ServerRespondMsg>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
@@ -237,24 +237,24 @@ class PlayerLoginMsg final :
 };
 // -------------------------------------------------------------------
 
-class RespondMsg final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RespondMsg) */ {
+class ServerRespondMsg final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ServerRespondMsg) */ {
  public:
-  inline RespondMsg() : RespondMsg(nullptr) {}
-  ~RespondMsg() override;
-  explicit PROTOBUF_CONSTEXPR RespondMsg(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ServerRespondMsg() : ServerRespondMsg(nullptr) {}
+  ~ServerRespondMsg() override;
+  explicit PROTOBUF_CONSTEXPR ServerRespondMsg(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  RespondMsg(const RespondMsg& from);
-  RespondMsg(RespondMsg&& from) noexcept
-    : RespondMsg() {
+  ServerRespondMsg(const ServerRespondMsg& from);
+  ServerRespondMsg(ServerRespondMsg&& from) noexcept
+    : ServerRespondMsg() {
     *this = ::std::move(from);
   }
 
-  inline RespondMsg& operator=(const RespondMsg& from) {
+  inline ServerRespondMsg& operator=(const ServerRespondMsg& from) {
     CopyFrom(from);
     return *this;
   }
-  inline RespondMsg& operator=(RespondMsg&& from) noexcept {
+  inline ServerRespondMsg& operator=(ServerRespondMsg&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -277,20 +277,20 @@ class RespondMsg final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const RespondMsg& default_instance() {
+  static const ServerRespondMsg& default_instance() {
     return *internal_default_instance();
   }
-  static inline const RespondMsg* internal_default_instance() {
-    return reinterpret_cast<const RespondMsg*>(
-               &_RespondMsg_default_instance_);
+  static inline const ServerRespondMsg* internal_default_instance() {
+    return reinterpret_cast<const ServerRespondMsg*>(
+               &_ServerRespondMsg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(RespondMsg& a, RespondMsg& b) {
+  friend void swap(ServerRespondMsg& a, ServerRespondMsg& b) {
     a.Swap(&b);
   }
-  inline void Swap(RespondMsg* other) {
+  inline void Swap(ServerRespondMsg* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -303,7 +303,7 @@ class RespondMsg final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(RespondMsg* other) {
+  void UnsafeArenaSwap(ServerRespondMsg* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -311,14 +311,14 @@ class RespondMsg final :
 
   // implements Message ----------------------------------------------
 
-  RespondMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<RespondMsg>(arena);
+  ServerRespondMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ServerRespondMsg>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const RespondMsg& from);
+  void CopyFrom(const ServerRespondMsg& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const RespondMsg& from) {
-    RespondMsg::MergeImpl(*this, from);
+  void MergeFrom( const ServerRespondMsg& from) {
+    ServerRespondMsg::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -336,15 +336,15 @@ class RespondMsg final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(RespondMsg* other);
+  void InternalSwap(ServerRespondMsg* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "RespondMsg";
+    return "ServerRespondMsg";
   }
   protected:
-  explicit RespondMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ServerRespondMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -358,11 +358,11 @@ class RespondMsg final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDataFieldNumber = 5,
+    kDataFieldNumber = 3,
     kRvFieldNumber = 1,
     kMsgTypeFieldNumber = 2,
   };
-  // bytes data = 5;
+  // bytes data = 3;
   void clear_data();
   const std::string& data() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -394,7 +394,7 @@ class RespondMsg final :
   void _internal_set_msgtype(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:RespondMsg)
+  // @@protoc_insertion_point(class_scope:ServerRespondMsg)
  private:
   class _Internal;
 
@@ -543,84 +543,84 @@ inline void PlayerLoginMsg::set_allocated_userpass(std::string* userpass) {
 
 // -------------------------------------------------------------------
 
-// RespondMsg
+// ServerRespondMsg
 
 // bool rv = 1;
-inline void RespondMsg::clear_rv() {
+inline void ServerRespondMsg::clear_rv() {
   _impl_.rv_ = false;
 }
-inline bool RespondMsg::_internal_rv() const {
+inline bool ServerRespondMsg::_internal_rv() const {
   return _impl_.rv_;
 }
-inline bool RespondMsg::rv() const {
-  // @@protoc_insertion_point(field_get:RespondMsg.rv)
+inline bool ServerRespondMsg::rv() const {
+  // @@protoc_insertion_point(field_get:ServerRespondMsg.rv)
   return _internal_rv();
 }
-inline void RespondMsg::_internal_set_rv(bool value) {
+inline void ServerRespondMsg::_internal_set_rv(bool value) {
   
   _impl_.rv_ = value;
 }
-inline void RespondMsg::set_rv(bool value) {
+inline void ServerRespondMsg::set_rv(bool value) {
   _internal_set_rv(value);
-  // @@protoc_insertion_point(field_set:RespondMsg.rv)
+  // @@protoc_insertion_point(field_set:ServerRespondMsg.rv)
 }
 
 // int32 msgType = 2;
-inline void RespondMsg::clear_msgtype() {
+inline void ServerRespondMsg::clear_msgtype() {
   _impl_.msgtype_ = 0;
 }
-inline int32_t RespondMsg::_internal_msgtype() const {
+inline int32_t ServerRespondMsg::_internal_msgtype() const {
   return _impl_.msgtype_;
 }
-inline int32_t RespondMsg::msgtype() const {
-  // @@protoc_insertion_point(field_get:RespondMsg.msgType)
+inline int32_t ServerRespondMsg::msgtype() const {
+  // @@protoc_insertion_point(field_get:ServerRespondMsg.msgType)
   return _internal_msgtype();
 }
-inline void RespondMsg::_internal_set_msgtype(int32_t value) {
+inline void ServerRespondMsg::_internal_set_msgtype(int32_t value) {
   
   _impl_.msgtype_ = value;
 }
-inline void RespondMsg::set_msgtype(int32_t value) {
+inline void ServerRespondMsg::set_msgtype(int32_t value) {
   _internal_set_msgtype(value);
-  // @@protoc_insertion_point(field_set:RespondMsg.msgType)
+  // @@protoc_insertion_point(field_set:ServerRespondMsg.msgType)
 }
 
-// bytes data = 5;
-inline void RespondMsg::clear_data() {
+// bytes data = 3;
+inline void ServerRespondMsg::clear_data() {
   _impl_.data_.ClearToEmpty();
 }
-inline const std::string& RespondMsg::data() const {
-  // @@protoc_insertion_point(field_get:RespondMsg.data)
+inline const std::string& ServerRespondMsg::data() const {
+  // @@protoc_insertion_point(field_get:ServerRespondMsg.data)
   return _internal_data();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void RespondMsg::set_data(ArgT0&& arg0, ArgT... args) {
+void ServerRespondMsg::set_data(ArgT0&& arg0, ArgT... args) {
  
  _impl_.data_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:RespondMsg.data)
+  // @@protoc_insertion_point(field_set:ServerRespondMsg.data)
 }
-inline std::string* RespondMsg::mutable_data() {
+inline std::string* ServerRespondMsg::mutable_data() {
   std::string* _s = _internal_mutable_data();
-  // @@protoc_insertion_point(field_mutable:RespondMsg.data)
+  // @@protoc_insertion_point(field_mutable:ServerRespondMsg.data)
   return _s;
 }
-inline const std::string& RespondMsg::_internal_data() const {
+inline const std::string& ServerRespondMsg::_internal_data() const {
   return _impl_.data_.Get();
 }
-inline void RespondMsg::_internal_set_data(const std::string& value) {
+inline void ServerRespondMsg::_internal_set_data(const std::string& value) {
   
   _impl_.data_.Set(value, GetArenaForAllocation());
 }
-inline std::string* RespondMsg::_internal_mutable_data() {
+inline std::string* ServerRespondMsg::_internal_mutable_data() {
   
   return _impl_.data_.Mutable(GetArenaForAllocation());
 }
-inline std::string* RespondMsg::release_data() {
-  // @@protoc_insertion_point(field_release:RespondMsg.data)
+inline std::string* ServerRespondMsg::release_data() {
+  // @@protoc_insertion_point(field_release:ServerRespondMsg.data)
   return _impl_.data_.Release();
 }
-inline void RespondMsg::set_allocated_data(std::string* data) {
+inline void ServerRespondMsg::set_allocated_data(std::string* data) {
   if (data != nullptr) {
     
   } else {
@@ -632,7 +632,7 @@ inline void RespondMsg::set_allocated_data(std::string* data) {
     _impl_.data_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:RespondMsg.data)
+  // @@protoc_insertion_point(field_set_allocated:ServerRespondMsg.data)
 }
 
 #ifdef __GNUC__

@@ -1,11 +1,11 @@
 ﻿// dllmain.cpp : 定义 DLL 应用程序的入口点。
 
 #include "dllmain.h"
-#include "netsock.h"
+#include "ClientSockt.h"
 #include "encry.h"
+#include "msg.pb.h"
+#include <windows.h>
 
-#define SEVER_ADDRES "118.25.250.33"
-#define SERVER_PORT 7788
 
 #ifdef _DEBUG
 #define WinPrintA OutputDebugStringFA
@@ -18,119 +18,53 @@ void  __stdcall OutputDebugStringFA(const char* format, ...);
 void __stdcall OutputDebugStringFW(const wchar_t* format, ...);
 
 
+#define SEVER_ADDRES "118.25.250.33"
+#define SERVER_PORT 7788
 
-CNetSockt* pSock = nullptr;
-CEncryAES* pAes = nullptr;;
+CClientSockt* pSock = nullptr;
 
-
-BOOL APIENTRY DllMain(HMODULE hModule,
-	DWORD  ul_reason_for_call,
-	LPVOID lpReserved
-)
+bool __stdcall InitSocketLib()
 {
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-		pSock = new CNetSockt();
-		pAes = new CEncryAES("qiancheng2");
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		if (pSock)
-			delete pSock;
-		if (pAes)
-			delete pAes;
-		break;
-	}
-	return TRUE;
-}
+	std::string serverAddr = SEVER_ADDRES;
+	unsigned int serverPort = SERVER_PORT;
 
-
-
-BOOL   InitNetLib()
-{
-	std::string serAddr = SEVER_ADDRES;
-	unsigned int serPort = SERVER_PORT;
-	if (FALSE == pSock->InitWin32Socket(serAddr, serPort))
+	pSock = new CClientSockt();
+	if (FALSE == pSock->Init(serverAddr, serverPort))
 	{
 		WinPrintA("[dbg]:服务器连接失败");
+		delete pSock;
+		pSock = nullptr;
 		return FALSE;
 	}
+
 	WinPrintA("[dbg]:服务器连接成功");
 	return TRUE;
-
 }
 
-
-BOOL  PlayerLogin(_In_ std::string& _UserName, _In_ std::string& _Pass)
+unsigned int __stdcall GetSockMsgError()
 {
-	PlayerLoginMsg* pMsg = new PlayerLoginMsg();
-	RespondMsg* pRecvMsg = nullptr;
-	std::string strMsg;
+	return 0;
+}
 
-	BOOL blStat = FALSE;
-	if (!pMsg)
-	{
-		WinPrintA("[dbg]: 生成待发送的网络消息失败-->PlayerLoginMsg");
+bool __stdcall SendSockMessage(const struct SOCKT_MSG* _pSockMsg)
+{
+	if (!pSock)
 		return FALSE;
-	}
-	pMsg->set_msgtype(NETWORK_MSGTYPE::MSG_TYPE_LOG);
-	pMsg->set_username(pAes->AesCbcEncrypt(_UserName));		// 账户名
-	pMsg->set_userpass(pAes->AesCbcEncrypt(_Pass));			// 密码
-	pMsg->SerializeToString(&strMsg);	// 序列化
+	return pSock->SendSockMsg(_pSockMsg);
+}
 
-	if (0 >= strMsg.size())
-	{
-		delete pMsg;
-		WinPrintA("[dbg]: 序列化待发送的网络消息失败");
+bool __stdcall RecvSockMessage(struct SOCKT_MSG* _sockMsg)
+{
+	if (!pSock)
 		return FALSE;
-	}
-	pSock->SendNetMessage(strMsg);
-	for (int timeOut = 0; timeOut <= 10; ++timeOut)
-	{
-		if (0 != pSock->RecvNetMessage(strMsg))
-		{
-			Sleep(1000);
-			continue;
-		}
-		pRecvMsg = new RespondMsg();
-		pRecvMsg->ParseFromString(strMsg);
-		if (TRUE == pRecvMsg->rv() && pRecvMsg->msgtype() == NETWORK_MSGTYPE::MSG_TYPE_LOG)
-			blStat = TRUE;
-		break;
-	}
-#ifdef _DEBUG
-	if (blStat)
-		WinPrintA("[dbg]: 网络验证成功,可以登录");
-	else
-		WinPrintA("[dbg]: 网络验证失败, 账号或者密码可能不对");
-#endif
-	if (pMsg)
-		delete pMsg;
-	if (pRecvMsg)
-		delete pRecvMsg;
-	return blStat;
+	return pSock->RecvSockMsg(_sockMsg);
 }
 
-
-BOOL CALLBACK  SendSocketMsg(NETWORK_MSGTYPE _msgType, _In_ std::string& _strMsg)
+unsigned int __stdcall GetRecvOutstandMsg()
 {
 	return 0;
 }
 
-DWORD CALLBACK  RecvSocketMsg(_Out_ NETWORK_MSGTYPE _msgType, _Out_ std::string& _recvStrMsg)
-{
-	return 0;
-}
-DWORD CALLBACK  RecvSocketMsg(std::string& _recvStrMsg)
-{
-
-	//std::string recvMsg = cNetSock.RecvNetMessage();
-	return 0;
-}
 
 
 

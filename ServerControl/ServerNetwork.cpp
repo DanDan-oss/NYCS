@@ -45,8 +45,11 @@ CServerChanelData::~CServerChanelData()
 		delete this->m_proto;
 	}
 
+	/*
+	* // 当最后一个客户端断开链接后,关闭服务端
 	if (ZinxKernel::Zinx_GetAllRole().size() < 1)
 		ZinxKernel::Zinx_Exit();
+		*/
 	//if (ZinxKernel::Zinx_GetAllRole().size() < 1)
 	//	TimerManage::GetInstance()->AddTask(&g_exit_time);
 }
@@ -70,7 +73,7 @@ ZinxTcpData* CServerTcpFact::CreateTcpDataChannel(int _fd)
 	CServerChanelData* pChanel = new CServerChanelData(_fd);
 	CServerProto* pProto = new CServerProto(pChanel);
 	pChanel->SetProto(pProto);
-
+	std::cout << "new connect " << std::endl;
 	// 将协议对象添加到协议链表,方便以后查找
 	ZinxKernel::Zinx_Add_Channel(*pChanel);
 	ZinxKernel::Zinx_Add_Proto(*pProto);

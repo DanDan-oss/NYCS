@@ -1,0 +1,14 @@
+Debug
+*.lib
+*.dll
+*.tlog
+*.obj
+*.pdb
+*.idb
+*.ipdb
+.vs
+*.out
+*.recipe
+*.log
+*.ilk
+*.iobj

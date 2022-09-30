@@ -24,7 +24,7 @@
     <ClCompile Include="msg.pb.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="netsock.cpp">
+    <ClCompile Include="ClientSockt.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="msg.pb.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="netsock.h">
+    <ClInclude Include="ClientSockt.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="dllmain.h">

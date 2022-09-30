@@ -10,7 +10,7 @@ CSocketMSG::CSocketMSG(CSocketMSG::MSG_TYPE _type, google::protobuf::Message* _p
 		this->m_pMsg = new PlayerLoginMsg(dynamic_cast<PlayerLoginMsg&>(*_pMsg));
 		break;
 	case MSG_TYPE::MSG_TYPE_Respond:
-		this->m_pMsg = new RespondMsg(dynamic_cast<RespondMsg&>(*_pMsg));
+		this->m_pMsg = new ServerRespondMsg(dynamic_cast<ServerRespondMsg&>(*_pMsg));
 	default:
 		break;
 	}
@@ -25,9 +25,9 @@ CSocketMSG::CSocketMSG(CSocketMSG::MSG_TYPE _type, std::string _stream)
 		this->m_pMsg = new PlayerLoginMsg();
 		break;
 	case MSG_TYPE::MSG_TYPE_Respond:
-		this->m_pMsg = new RespondMsg();
+		this->m_pMsg = new ServerRespondMsg();
 	default:
-		break;
+		return;
 	}
 	this->m_pMsg->ParseFromString(_stream);
 }

@@ -73,14 +73,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\Microsoft Visual Studio\protobuf-3.21.6\src;C:\Program Files (x86)\Microsoft Visual Studio\OpenSSL\OpenSSL-Win32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\Microsoft Visual Studio\protobuf-3.21.6\VS2019\x86\Debug;C:\Program Files (x86)\Microsoft Visual Studio\OpenSSL\OpenSSL-Win32\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Microsoft Visual Studio\protobuf-3.21.6\src;D:\Microsoft Visual Studio\OpenSSL\OpenSSL-Win32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Microsoft Visual Studio\protobuf-3.21.6\VS2019\x86\Debug;D:\Microsoft Visual Studio\OpenSSL\OpenSSL-Win32\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>D:\Doucment\Game\MLBB\WinTop\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>D:\Doucment\Game\MLBB\WinTop\</OutDir>
+    <IncludePath>D:\Microsoft Visual Studio\OpenSSL\OpenSSL-Win32\include;D:\Microsoft Visual Studio\protobuf-3.21.6\src;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Microsoft Visual Studio\protobuf-3.21.6\VS2019\x86\Debug;D:\Microsoft Visual Studio\OpenSSL\OpenSSL-Win32\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>D:\Hunter\MLBB\WinTop\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -95,13 +100,13 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft Visual Studio\protobuf-3.21.6\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>libprotocd.lib;libprotobufd.lib;libcrypto.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;libprotobufd.lib;libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Microsoft Visual Studio\protobuf-3.21.6\VS2019\x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>export.def</ModuleDefinitionFile>
     </Link>
@@ -112,10 +117,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;WINSOCK_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;WINSOCK_EXPORTS;_WINDOWS;_USRDLL;PROTOBUF_USE_DLLS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -123,6 +129,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>ws2_32.lib;libprotobufd.lib;libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>export.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -163,12 +171,12 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="encry.cpp" />
     <ClCompile Include="msg.pb.cc" />
-    <ClCompile Include="netsock.cpp" />
+    <ClCompile Include="ClientSockt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="encry.h" />
     <ClInclude Include="msg.pb.h" />
-    <ClInclude Include="netsock.h" />
+    <ClInclude Include="ClientSockt.h" />
     <ClInclude Include="dllmain.h" />
   </ItemGroup>
   <ItemGroup>

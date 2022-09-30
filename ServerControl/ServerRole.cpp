@@ -29,7 +29,7 @@ UserData* CServerRole::ProcMsg(UserData& _poUserData)
 	CSocketMSG* pSerMsg = nullptr;
 	std::string userName;
 	std::string userpass;
-	RespondMsg* pCacheMsg = nullptr;
+	ServerRespondMsg* pCacheMsg = nullptr;
 	PlayerLoginMsg* pMsgPtr = nullptr;
 
 	GET_REF2DATA(CMultServerMSG, input, _poUserData);
@@ -38,17 +38,24 @@ UserData* CServerRole::ProcMsg(UserData& _poUserData)
 		switch (pCache->GetMsgType())
 		{
 		case CSocketMSG::MSG_TYPE::MSG_TYPE_LOG:
-
+			// 判断当前消息是不是上线消息
 			pMsgPtr = dynamic_cast<PlayerLoginMsg*>(pCache->GetMessagePoint());
-			userName = cAes.AesCbcDecrypt(pMsgPtr->username());
-			userpass = cAes.AesCbcDecrypt(pMsgPtr->userpass());
+
+			userName = pMsgPtr->username();
+			userpass = pMsgPtr->userpass();
+			//userName = cAes.AesCbcDecrypt(userName);
+			//userpass = cAes.AesCbcDecrypt(userpass);
 			std::cout << userName << "   " << userpass << std::endl;
-			pCacheMsg = new RespondMsg();
-			//pCacheMsg->set_rv(true);
-			//pCacheMsg->set_msgtype(CSocketMSG::MSG_TYPE::MSG_TYPE_LOG);
+
+			pCacheMsg = new ServerRespondMsg();
+			pCacheMsg->set_rv(true);
+			pCacheMsg->set_msgtype(CSocketMSG::MSG_TYPE::MSG_TYPE_LOG);
+			
 			//pCacheMsg->set_data(userName.data(), userpass.data());
 			//pCacheMsg->set_data(cAes.AesCbcEncrypt(pCacheMsg->data()));
-
+			userName.append(userpass);
+			pCacheMsg->set_data(userName);
+			std::cout << "add data: "<<userName<< std::endl;
 			pSerMsg = new CSocketMSG(CSocketMSG::MSG_TYPE::MSG_TYPE_Respond, pCacheMsg);
 			ZinxKernel::Zinx_SendOut(*pSerMsg, *(this->m_Proto));
 			delete pCacheMsg;
@@ -56,7 +63,6 @@ UserData* CServerRole::ProcMsg(UserData& _poUserData)
 		default:
 			break;
 		}
-		return pSerMsg;
 	}
 
 	return nullptr;
