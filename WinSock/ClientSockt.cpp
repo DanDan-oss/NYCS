@@ -2,9 +2,6 @@
 #include <windows.h> 
 #include "ClientSockt.h"
 #include "dllmain.h"
-#include "msg.pb.h"
-
-
 
 
 DWORD WINAPI RevcMessageThread(LPVOID lpThreeParameter)
@@ -32,162 +29,6 @@ DWORD WINAPI RevcMessageThread(LPVOID lpThreeParameter)
 	pSocket->ReadFd(strBuf);
 	return NULL;
 }
-
-// =============================== 消息类
-CClientMSG::CClientMSG(CClientMSG::MSG_TYPE _type, google::protobuf::Message* _pMsg)
-	:m_msgType(_type)
-{
-	switch (_type)
-	{
-	case MSG_TYPE::MSG_TYPE_PANT:
-		return;
-		break;
-	case MSG_TYPE::MSG_TYPE_LOG:
-		this->m_pMsg = new PlayerLoginMsg(dynamic_cast<PlayerLoginMsg&>(*_pMsg));
-		break;
-	case MSG_TYPE::MSG_TYPE_RESPOND:
-		this->m_pMsg = new ServerRespondMsg(dynamic_cast<ServerRespondMsg&>(*_pMsg));
-	default:
-		return;
-	}
-	return;
-}
-
-CClientMSG::CClientMSG(CClientMSG::MSG_TYPE _type, std::string _stream)
-	:m_msgType(_type)
-{
-	switch (_type)
-	{
-	case MSG_TYPE::MSG_TYPE_PANT:
-		return;
-	case CClientMSG::MSG_TYPE_LOG:
-		this->m_pMsg = new PlayerLoginMsg();
-		break;
-	case CClientMSG::MSG_TYPE_RESPOND:
-		this->m_pMsg = new ServerRespondMsg();
-		break;
-	default:
-		return;
-	}
-	this->m_pMsg->ParseFromString(_stream);
-}
-
-CClientMSG::CClientMSG(const struct SOCKT_MSG* msg)
-{
-	if (msg == nullptr)
-		return;
-	switch (msg->type)
-	{
-	case NETWORK_MSGTYPE::MSG_TYPE_PANT:
-		return;
-	case NETWORK_MSGTYPE::MSG_TYPE_LOG:
-	{
-		this->m_msgType = MSG_TYPE::MSG_TYPE_LOG;
-		this->m_pMsg = new PlayerLoginMsg();
-		auto pCache = dynamic_cast<PlayerLoginMsg*>(this->m_pMsg);
-		pCache->set_msgtype(MSG_TYPE::MSG_TYPE_LOG);
-		pCache->set_username(msg->PlayerLogin.userName);
-		pCache->set_userpass(msg->PlayerLogin.userPass);
-		return;
-	}
-	case NETWORK_MSGTYPE::MSG_TYPE_RESPOND:
-	{
-		this->m_msgType = MSG_TYPE::MSG_TYPE_RESPOND;
-		this->m_pMsg = new ServerRespondMsg();
-		auto pCache = dynamic_cast<ServerRespondMsg*>(this->m_pMsg);
-		pCache->set_msgtype(MSG_TYPE::MSG_TYPE_RESPOND);
-		pCache->set_rv(msg->ServerRecv.rv);
-		pCache->set_data(msg->ServerRecv.recvData);
-		return;
-	}
-	default:
-		return;
-	}
-}
-
-CClientMSG::~CClientMSG()
-{
-	if (this->m_pMsg)
-		delete this->m_pMsg;
-}
-
-BOOL CClientMSG::SerializeToMsg(struct SOCKT_MSG* _sokeMsg)
-{
-	BOOL bRet = false;
-	std::string strCache;
-
-	if (!_sokeMsg)
-		return FALSE;
-
-	// 根据消息类型将传进来的参数赋值,参数成员变量是char*的要判断指针是否指向NULL
-	switch (this->m_msgType)
-	{
-	case MSG_TYPE::MSG_TYPE_PANT:
-		_sokeMsg->type = NETWORK_MSGTYPE::MSG_TYPE_PANT;
-		return TRUE;
-	case MSG_TYPE::MSG_TYPE_LOG:
-	{
-		auto pCache = dynamic_cast<PlayerLoginMsg*>(this->m_pMsg);
-		_sokeMsg->type = NETWORK_MSGTYPE::MSG_TYPE_LOG;
-		if (_sokeMsg->PlayerLogin.userPass)
-		{
-			strCache = pCache->username();
-			strcpy(_sokeMsg->PlayerLogin.userName, strCache.data());
-		}
-		if (_sokeMsg->PlayerLogin.userPass)
-		{
-			strCache = pCache->userpass();
-			strcpy(_sokeMsg->PlayerLogin.userPass, strCache.data());
-		}
-		return TRUE;
-	}
-	case MSG_TYPE::MSG_TYPE_RESPOND:
-	{
-		auto pCache = dynamic_cast<ServerRespondMsg*>(this->m_pMsg);
-		_sokeMsg->type = NETWORK_MSGTYPE::MSG_TYPE_RESPOND;
-		_sokeMsg->ServerRecv.rv = pCache->rv();
-		if (_sokeMsg->ServerRecv.recvData)
-		{
-			strCache = pCache->data();
-			strcpy(_sokeMsg->ServerRecv.recvData, strCache.data());
-		}
-		return TRUE;
-	}
-	default:
-		return FALSE;
-	}
-}
-
-std::string CClientMSG::SerializeToString()
-{
-	std::string str;
-	if (!this->m_pMsg)
-		return str;
-	this->m_pMsg->SerializeToString(&str);
-	return str;
-}
-
-
-
-
-google::protobuf::Message* CClientMSG::GetMessagePoint()
-{
-	return this->m_pMsg;
-}
-
-CClientMSG::MSG_TYPE CClientMSG::GetMsgType()
-{
-	return this->m_msgType;
-}
-
-
-CMultClientMSG::~CMultClientMSG()
-{
-	// 释放消息集
-	for (CClientMSG* pMsg : this->m_pMsg)
-		delete pMsg;
-}
-
 
 // ======================================> 数据序列化类
 CClientProto::CClientProto()
@@ -348,13 +189,17 @@ BOOL CClientSockt::RecvSockMsg(struct SOCKT_MSG* _sokeMsg)
 	if (!this->m_multMsg.m_pMsg.size())
 		return false;
 
-	// 将消息队列里的第一个消息弹出
+	// 获取消息队列里的第一个消息
 	msgPtr = this->m_multMsg.m_pMsg.front();
-	this->m_multMsg.m_pMsg.pop_front();
 
 	// 转换协议消息后,释放消息内存
-	msgPtr->SerializeToMsg(_sokeMsg);
-	delete msgPtr;
+	if (msgPtr->SerializeToMsg(_sokeMsg, this))
+	{
+		this->m_multMsg.m_pMsg.pop_front();
+		delete msgPtr;
+	}
+
+
 	return TRUE;
 }
 
@@ -404,7 +249,7 @@ bool CClientSockt::ReadFd(std::string& _input)
 	//
 	//std::cout << "recv from " << this->m_sockFd << ":" << _input.data() << std::endl;
 	//std::cout << "<----------------------------------------->" << std::endl;
-	//return true;
+	return true;
 }
 
 bool CClientSockt::WriteFd(std::string& _output)

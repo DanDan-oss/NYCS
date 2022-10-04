@@ -68,6 +68,11 @@ CEncryAES::CEncryAES(const  char* userKey, const int bitSize, const   char* ivec
 	return;
 }
 
+CEncryAES::~CEncryAES()
+{
+	
+}
+
 bool CEncryAES::InitAesKey(const  char* userKey, const int bitSize, const  char* ivec)
 {
 	this->m_userKey = (char*)userKey;

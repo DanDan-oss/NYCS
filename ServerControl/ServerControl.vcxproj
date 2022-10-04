@@ -82,6 +82,7 @@
     <ClCompile Include="ServerNetwork.cpp" />
     <ClCompile Include="ServerProto.cpp" />
     <ClCompile Include="ServerRole.cpp" />
+    <ClCompile Include="ServerSQL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="encry.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="ServerNetwork.h" />
     <ClInclude Include="ServerProto.h" />
     <ClInclude Include="ServerRole.h" />
+    <ClInclude Include="ServerSQL.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="msg.proto" />
@@ -104,7 +106,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <LibraryDependencies>zinx;protobuf;pthread;crypto;%(LibraryDependencies)</LibraryDependencies>
+      <LibraryDependencies>zinx;protobuf;pthread;crypto;mysqlclient;%(LibraryDependencies)</LibraryDependencies>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

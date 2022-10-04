@@ -168,12 +168,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClientMSG.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="encry.cpp" />
     <ClCompile Include="msg.pb.cc" />
     <ClCompile Include="ClientSockt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClientMSG.h" />
     <ClInclude Include="encry.h" />
     <ClInclude Include="msg.pb.h" />
     <ClInclude Include="ClientSockt.h" />

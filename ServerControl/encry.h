@@ -19,6 +19,8 @@ class CEncryAES
 public:
     CEncryAES(const char* userKey, const int bitSize = 128, 
         const char* ivec = "csaersacfkacseacv");
+    virtual ~CEncryAES();
+
 	bool InitAesKey(const  char* userKey, const int bitSize, const char* ivec);
 
     std::string AesCbcEncrypt(std::string enc_data);     // º”√‹

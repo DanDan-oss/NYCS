@@ -16,7 +16,7 @@ public:
 public:
 	CSocketMSG(CSocketMSG::MSG_TYPE _type, google::protobuf::Message* _pMsg);
 	CSocketMSG(CSocketMSG::MSG_TYPE _type, std::string _stream);
-	~CSocketMSG();
+	virtual ~CSocketMSG();
 
 	// 序列化成字符串(发送TCP消息时可以共)
 	std::string Serialize();

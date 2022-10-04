@@ -30,6 +30,9 @@
     <ClCompile Include="encry.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="ServerSQL.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ServerMSG.h">
@@ -48,6 +51,9 @@
       <Filter>Head</Filter>
     </ClInclude>
     <ClInclude Include="encry.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerSQL.h">
       <Filter>Head</Filter>
     </ClInclude>
   </ItemGroup>
